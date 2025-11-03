@@ -61,7 +61,7 @@ The raw 10x Genomics data (`matrix.mtx`, `barcodes.tsv`, `features.tsv`) was loa
     -   `percent.mt`: The percentage of mitochondrial genes.
 4.  **Filtering (Subsetting):** Based on the plots, we filtered out low-quality data. Cells with too few genes (likely empty droplets), too many genes (potential doublets), or high mitochondrial DNA were removed to ensure a clean dataset of healthy, single cells.
 
-<img src="figures/Violin_Plot.png" width="600"/>
+<img src="images/Violin_Plot.png" width="600"/>  
 
 *Figure 1: QC violin plots showing the distribution of genes, RNA counts, and mitochondrial percentage before filtering.*
 
@@ -71,7 +71,7 @@ The raw 10x Genomics data (`matrix.mtx`, `barcodes.tsv`, `features.tsv`) was loa
 2.  **Find Variable Features (`FindVariableFeatures`):** We identified the 2,000 most highly variable genes across all cells. Focusing on these genes, which show the most biological variation, allows us to find the patterns that separate cell types.
 3.  **Visualize Variable Features:** The variable feature plot shows the average expression versus the standardized variance. The red dots represent the 2,000 most variable genes (like `Sparc` and `Col1a2`) that will be used for the next steps.
 
-<img src="figures/Variable_Feature_Plot.png" width="500"/>
+<img src="images/Variable_Feature_Plot.png" width="500"/>
 
 *Figure 2: A plot identifying the 2,000 most variable genes (red) that drive the biological differences in the dataset.*
 
@@ -97,7 +97,7 @@ The `FindClusters` function gave us abstract labels (Cluster 0, Cluster 1, etc.)
 2.  **Labeling:** It then assigns the most likely cell type label to each cluster.
 3.  **Visualization:** We then plotted the UMAP again, but this time colored by the new biological identities.
 
-<img src="figures/Annotated_Cell_Types.png" width="700"/>
+<img src="images/Annotated_Cell_Types.png" width="700"/>
 
 *Figure 3: The final UMAP plot, where each cluster is annotated with its predicted cell type. This map clearly shows 14 distinct cell populations, including T cells, Macrophages, Monocytes, and Fibroblasts.*
 
@@ -111,7 +111,7 @@ To understand *why* these cell types are different, we identified their unique g
 2.  **Compare Two Clusters (`FindMarkers`):** We also performed a direct comparison between two specific clusters (Cluster 0 and Cluster 1) to find all genes that were differentially expressed between them.
 3.  **Visualize DEGs:** We visualized these results using a **Volcano Plot**.
 
-<img src="figures/Volcano_Plot.png" width="600"/>
+<img src="images/Volcano_Plot.png" width="600"/>
 
 *Figure 4: A volcano plot comparing Cluster 0 vs. Cluster 1. The X-axis is the log-fold change (how much more/less expressed a gene is). The Y-axis is the statistical significance. The red dots represent genes that are both highly significant and show a large change, making them key biological differentiators between these two cell populations.*
 
