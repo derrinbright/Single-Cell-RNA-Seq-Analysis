@@ -21,13 +21,13 @@ The project successfully transformed raw, high-dimensional count data into a cle
 
 A tumor is not just a collection of cancer cells. It's a complex **Tumor Microenvironment (TME)**, a bustling "neighborhood" of immune cells, structural cells (fibroblasts), and blood vessel cells. These neighboring cells determine whether a tumor grows, spreads, or responds to treatment.
 
-Traditional sequencing (bulk RNA-seq) is like putting this entire neighborhood into a blender—you get an *average* gene expression profile, but you lose all the detail.
+Traditional sequencing (bulk RNA-seq) is like putting this entire neighborhood into a blender, you get an *average* gene expression profile, but you lose all the detail.
 
-**Single-cell RNA-seq** is a revolutionary technique that solves this. It's like interviewing every "resident" (each cell) one-by-one. This allows us to build a detailed census of the tumor, identifying every cell type and understanding its unique function. The goal of this project was to perform this "cellular census" on a standard B16 melanoma model.
+**Single-cell RNA-seq** is a revolutionary technique that solves this. It's like interviewing every cell one-by-one. This allows us to build a detailed census of the tumor, identifying every cell type and understanding its unique function. The goal of this project was to perform this "cellular census" on a standard B16 melanoma model.
 
 ### About the Data
 
--   **B16 Melanoma Model:** This is a widely-used mouse model for studying aggressive skin cancer. It's the "crash test dummy" of melanoma research, allowing scientists to reliably study tumor growth and test new therapies.
+-   **B16 Melanoma Model:** This is a widely-used mouse model for studying aggressive skin cancer. 
 -   **GSE110746 Dataset:** This is the raw count data from the original study, which used 10x Genomics technology to profile the cells within this tumor model.
 
 ---
@@ -38,7 +38,7 @@ This entire analysis was conducted in **R**. The core of the workflow was built 
 
 -   **Core Language:** R
 -   **Primary Analysis Toolkit:** **Seurat** (for data handling, QC, normalization, clustering, and visualization)
--   **Cell Type Annotation:** **SingleR** & **celldex** (for automated cell identity prediction)
+-   **Cell Type Annotation:** **SingleR** (for automated cell identity prediction)
 -   **Data Manipulation:** **dplyr** (for filtering and ranking genes)
 -   **Data Visualization:** **ggplot2** & **patchwork** (for creating custom plots like the volcano plot)
 -   **Data Source:** NCBI Gene Expression Omnibus (GEO)
@@ -61,7 +61,7 @@ The raw 10x Genomics data (`matrix.mtx`, `barcodes.tsv`, `features.tsv`) was loa
     -   `percent.mt`: The percentage of mitochondrial genes.
 4.  **Filtering (Subsetting):** Based on the plots, we filtered out low-quality data. Cells with too few genes (likely empty droplets), too many genes (potential doublets), or high mitochondrial DNA were removed to ensure a clean dataset of healthy, single cells.
 
-<img src="images/Violin_Plot.png" width="600"/>  
+<img src="images/Violin Plot.png" width="600"/>  
 
 *Figure 1: QC violin plots showing the distribution of genes, RNA counts, and mitochondrial percentage before filtering.*
 
@@ -69,7 +69,7 @@ The raw 10x Genomics data (`matrix.mtx`, `barcodes.tsv`, `features.tsv`) was loa
 
 1.  **Normalization (`NormalizeData`):** Raw UMI counts were normalized using a log-transformation. This step is crucial for comparing gene expression levels across cells that may have had different sequencing depths.
 2.  **Find Variable Features (`FindVariableFeatures`):** We identified the 2,000 most highly variable genes across all cells. Focusing on these genes, which show the most biological variation, allows us to find the patterns that separate cell types.
-3.  **Visualize Variable Features:** The variable feature plot shows the average expression versus the standardized variance. The red dots represent the 2,000 most variable genes (like `Sparc` and `Col1a2`) that will be used for the next steps.
+3.  **Visualize Variable Features:** The variable feature plot shows the average expression versus the standardized variance. The red dots represent the 2,000 most variable genes, which will be used for the next steps.
 
 <img src="images/Variable Feature Plot.png" width="500"/>
 
@@ -97,7 +97,7 @@ The `FindClusters` function gave us abstract labels (Cluster 0, Cluster 1, etc.)
 2.  **Labeling:** It then assigns the most likely cell type label to each cluster.
 3.  **Visualization:** We then plotted the UMAP again, but this time colored by the new biological identities.
 
-<img src="images/Annotated_Cell_Types.png" width="700"/>
+<img src="images/Annotated Cell Types.png" width="700"/>
 
 *Figure 3: The final UMAP plot, where each cluster is annotated with its predicted cell type. This map clearly shows 14 distinct cell populations, including T cells, Macrophages, Monocytes, and Fibroblasts.*
 
@@ -111,7 +111,7 @@ To understand *why* these cell types are different, we identified their unique g
 2.  **Compare Two Clusters (`FindMarkers`):** We also performed a direct comparison between two specific clusters (Cluster 0 and Cluster 1) to find all genes that were differentially expressed between them.
 3.  **Visualize DEGs:** We visualized these results using a **Volcano Plot**.
 
-<img src="images/Volcano_Plot.png" width="600"/>
+<img src="images/Volcano Plot.png" width="600"/>
 
 *Figure 4: A volcano plot comparing Cluster 0 vs. Cluster 1. The X-axis is the log-fold change (how much more/less expressed a gene is). The Y-axis is the statistical significance. The red dots represent genes that are both highly significant and show a large change, making them key biological differentiators between these two cell populations.*
 
