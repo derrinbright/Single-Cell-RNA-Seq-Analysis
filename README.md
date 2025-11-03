@@ -71,7 +71,7 @@ The raw 10x Genomics data (`matrix.mtx`, `barcodes.tsv`, `features.tsv`) was loa
 2.  **Find Variable Features (`FindVariableFeatures`):** We identified the 2,000 most highly variable genes across all cells. Focusing on these genes, which show the most biological variation, allows us to find the patterns that separate cell types.
 3.  **Visualize Variable Features:** The variable feature plot shows the average expression versus the standardized variance. The red dots represent the 2,000 most variable genes (like `Sparc` and `Col1a2`) that will be used for the next steps.
 
-<img src="images/Variable_Feature_Plot.png" width="500"/>
+<img src="images/Variable Feature Plot.png" width="500"/>
 
 *Figure 2: A plot identifying the 2,000 most variable genes (red) that drive the biological differences in the dataset.*
 
